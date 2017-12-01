@@ -2,20 +2,15 @@
 package com.sample.wishlistDemo.api.generated;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Singleton;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.stereotype.Component;
 
-import com.sample.wishlistDemo.api.generated.WishlistItem;
-import com.sample.wishlistDemo.api.generated.YaasAwareParameters;
+import com.sample.wishlistDemo.services.IWishlist;
+import com.sample.wishlistDemo.services.WishlistImpl;
 
 /**
 * Resource class containing the custom logic. Please put your logic here!
@@ -26,6 +21,8 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 {
 	@javax.ws.rs.core.Context
 	private javax.ws.rs.core.UriInfo uriInfo;
+	
+	IWishlist iWishlist=new WishlistImpl();
 	
 	private Map<String, Wishlist> wishMap = new HashMap<String, Wishlist>();
 
@@ -44,8 +41,8 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	@Override
 	public Response post(final YaasAwareParameters yaasAware, final Wishlist wishlist)
 	{
-		
 		String usrId = yaasAware.getHybrisUserId();
+		iWishlist.saveWishlistToDoc(wishlist);
 		System.out.println(wishMap);
 		wishMap.put(usrId, wishlist);
 		return Response.created(uriInfo.getAbsolutePath())
