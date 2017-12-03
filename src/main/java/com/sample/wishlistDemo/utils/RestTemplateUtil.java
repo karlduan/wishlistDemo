@@ -38,14 +38,19 @@ public class RestTemplateUtil {
         
     }
 	
-    public String get(String url) {
+    public static String get(String url) {
         return RestTemplateUtil.getInstance().getForObject(url, String.class,
                 new Object[] {});
     }
 
-    public String getById(String url, String id) {
+    public static String getById(String url, String id) {
         return RestTemplateUtil.getInstance().getForObject(url, String.class,
                 id);
+    }
+    
+    public static String getByOwner(String url, String owner) {
+        return RestTemplateUtil.getInstance().getForObject(url, String.class,
+                owner);
     }
 
     

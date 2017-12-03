@@ -3,7 +3,7 @@ package com.sample.wishlistDemo.api.generated;
 /**
  * Generated parameter dto.
  */
-@javax.annotation.Generated(value = "hybris", date = "Sat Dec 02 10:31:39 EST 2017")
+@javax.annotation.Generated(value = "hybris", date = "Sun Dec 03 06:26:48 EST 2017")
 public class YaasAwareParameters
 {
 	@javax.validation.constraints.Pattern(regexp="^[a-z][a-z0-9]+$")

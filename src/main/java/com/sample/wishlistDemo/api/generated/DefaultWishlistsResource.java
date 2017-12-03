@@ -7,14 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Singleton;
-import javax.lang.model.element.Element;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sample.wishlistDemo.services.IWishlist;
-import com.sample.wishlistDemo.services.WishlistImpl;
+import com.sample.wishlistDemo.service.WishlistService;
 
 /**
 * Resource class containing the custom logic. Please put your logic here!
@@ -25,8 +23,8 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 {
 	@javax.ws.rs.core.Context
 	private javax.ws.rs.core.UriInfo uriInfo;
-	
-	IWishlist iWishlist=new WishlistImpl();
+	@Autowired
+	WishlistService wishlistService;
 	
 	private Map<String, Wishlist> wishMap = new HashMap<String, Wishlist>();
 	private final static String DUMMY_KEY="C6724366777";
@@ -47,9 +45,10 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	public Response post(final YaasAwareParameters yaasAware, final Wishlist wishlist)
 	{
 		String usrId = yaasAware.getHybrisUserId();
-//		iWishlist.saveWishlistToDoc(wishlist);
 		System.out.println(wishMap);
 		wishMap.put(DUMMY_KEY, wishlist);
+//      iWishlist.saveWishlistToDoc(wishlist);
+//		wishlistService.saveAWishlist(wishlist);
 		return Response.ok()
 	            .entity(wishlist).build();
 	}
@@ -58,7 +57,6 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	@Override
 	public Response getByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId)
 	{
-		// place some logic here
 		return Response.ok()
 			.entity(new Wishlist()).build();
 	}
@@ -67,7 +65,6 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	@Override
 	public Response putByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId, final Wishlist wishlist)
 	{
-		// place some logic here
 		return Response.ok()
 			.build();
 	}
@@ -76,7 +73,6 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	@Override
 	public Response deleteByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId)
 	{
-		// place some logic here
 		return Response.noContent()
 			.build();
 	}
@@ -86,7 +82,8 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	Response getByWishlistIdWishlistItems(
 			final YaasAwareParameters yaasAware,  final java.lang.String wishlistId)
 	{
-	    Wishlist wishlist = wishMap.get(DUMMY_KEY);
+	    
+	   /* Wishlist wishlist = wishMap.get(DUMMY_KEY);
 	    if (StringUtils.equals(wishlistId, wishlist.getId())) {
             return Response.ok()
                     .entity(wishlist.getItems()).build();
@@ -94,8 +91,10 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	    else {
 	        return Response.ok()
 	                .entity(new java.util.ArrayList<WishlistItem>()).build();
-        }
-	    
+        }*/
+	    List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
+	    return Response.ok()
+                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();
 	    
 	}
 
@@ -104,7 +103,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	Response postByWishlistIdWishlistItems(final YaasAwareParameters yaasAware,
 			final java.lang.String wishlistId, final WishlistItem wishlistItem){
 		// place some logic here
-	    Wishlist wishlist = wishMap.get(DUMMY_KEY);
+	    /*Wishlist wishlist = wishMap.get(DUMMY_KEY);
 	    if (StringUtils.equals(wishlistId, wishlist.getId())) {
 	        if (wishlist.getItems()==null) {
 	            List<WishlistItem> wishlistItemList=new ArrayList<WishlistItem>();
@@ -121,8 +120,10 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	    else {
 	        return Response.noContent()
                     .build();
-        }
-	    
+        }*/
+	    wishlistService.saveWishlistItemsByWishlistId(yaasAware, wishlistId, wishlistItem);
+	    return Response.ok()
+                .build();
 		
 	}
 
