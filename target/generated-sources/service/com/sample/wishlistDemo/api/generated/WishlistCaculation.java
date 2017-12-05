@@ -14,19 +14,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 public class WishlistCaculation
 {
 
-	@com.fasterxml.jackson.annotation.JsonProperty(value="wishlistid")
+	@com.fasterxml.jackson.annotation.JsonProperty(value="totalPrice")
 	@javax.validation.constraints.NotNull
-	private java.lang.String _wishlistid;
+	private java.lang.String _totalPrice;
 
-	
-
-	public java.lang.String get_wishlistid() {
-		return _wishlistid;
+	public java.lang.String get_totalPrice() {
+		return _totalPrice;
 	}
 
-
-
-	public void set_wishlistid(java.lang.String _wishlistid) {
-		this._wishlistid = _wishlistid;
-	}	
+	public void set_totalPrice(java.lang.String _totalPrice) {
+		this._totalPrice = _totalPrice;
+	}
+	
 }
