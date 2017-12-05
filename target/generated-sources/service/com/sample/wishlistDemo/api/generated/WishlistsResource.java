@@ -31,6 +31,11 @@ public interface WishlistsResource
 	@javax.ws.rs.GET
 	@javax.ws.rs.Produces({"application/json"})
 	Response getByWishlistIdWishlistItems(@javax.ws.rs.BeanParam @javax.validation.Valid final YaasAwareParameters yaasAware, @javax.ws.rs.PathParam("wishlistId") final java.lang.String wishlistId);
+	
+	@javax.ws.rs.Path("/{wishlistId}/wishlistcalculation")
+	@javax.ws.rs.GET
+	@javax.ws.rs.Produces({"application/json"})
+	Response getTotalPriceByWistlistId(@javax.ws.rs.BeanParam @javax.validation.Valid final YaasAwareParameters yaasAware, @javax.ws.rs.PathParam("wishlistId") final java.lang.String wishlistId);
 
 	@javax.ws.rs.Path("/{wishlistId}/wishlistItems")
 	@javax.ws.rs.POST

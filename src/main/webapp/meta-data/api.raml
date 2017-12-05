@@ -9,6 +9,7 @@ schemas:
   - wishlist: !include schemas/wishlist.json
   - wishlistItem: !include schemas/wishlistItem.json
   - wishlistItems: !include schemas/wishlistItems.json
+  - wishlistItems: !include schemas/wishlistcalculation.json
   - error: !include https://api.yaas.io/patterns/v1/schema-error-message.json
 
 traits: 
@@ -72,5 +73,15 @@ resourceTypes:
         description: Adds a wishlist item
         responses:
           201:
+            body:
+              application/json:
+              
+    /wishlistcalculation:
+      type: collection
+      is: [yaasAware]
+      get:
+        description: Gets total price for wishlist
+        responses:
+          200:
             body:
               application/json:

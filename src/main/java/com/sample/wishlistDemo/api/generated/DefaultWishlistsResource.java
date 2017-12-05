@@ -49,7 +49,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 		System.out.println(wishMap);
 		wishMap.put(DUMMY_KEY, wishlist);
 //      iWishlist.saveWishlistToDoc(wishlist);
-//		wishlistService.saveAWishlist(wishlist);
+		wishlistService.saveAWishlist(wishlist);
 		return Response.ok()
 	            .entity(wishlist).build();
 	}
@@ -84,7 +84,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 			final YaasAwareParameters yaasAware,  final java.lang.String wishlistId)
 	{
 	    
-	   Wishlist wishlist = wishMap.get(DUMMY_KEY);
+	   /*Wishlist wishlist = wishMap.get(DUMMY_KEY);
 	    if (StringUtils.equals(wishlistId, wishlist.getId())) {
             return Response.ok()
                     .entity(wishlist.getItems()).build();
@@ -92,10 +92,22 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	    else {
 	        return Response.ok()
 	                .entity(new java.util.ArrayList<WishlistItem>()).build();
-        }
-	    /*List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
+        }*/
+	    List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
 	    return Response.ok()
-                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();*/
+                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();
+	    
+	}
+	
+	@Override
+	public
+	Response getTotalPriceByWistlistId(
+			final YaasAwareParameters yaasAware,  final java.lang.String wishlistId)
+	{
+	    
+	    List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
+	    return Response.ok()
+                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();
 	    
 	}
 
@@ -104,7 +116,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	Response postByWishlistIdWishlistItems(final YaasAwareParameters yaasAware,
 			final java.lang.String wishlistId, final WishlistItem wishlistItem){
 		// place some logic here
-	    Wishlist wishlist = wishMap.get(DUMMY_KEY);
+	    /*Wishlist wishlist = wishMap.get(DUMMY_KEY);
 	    if (StringUtils.equals(wishlistId, wishlist.getId())) {
 	        if (wishlist.getItems()==null) {
 	            List<WishlistItem> wishlistItemList=new ArrayList<WishlistItem>();
@@ -121,10 +133,10 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	    else {
 	        return Response.noContent()
                     .build();
-        }
-	    /*wishlistService.saveWishlistItemsByWishlistId(yaasAware, wishlistId, wishlistItem);
+        }*/
+	    wishlistService.saveWishlistItemsByWishlistId(yaasAware, wishlistId, wishlistItem);
 	    return Response.ok()
-                .build();*/
+                .build();
 		
 	}
 
