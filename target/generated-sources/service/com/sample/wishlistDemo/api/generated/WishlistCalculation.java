@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @XmlRootElement
 @JsonAutoDetect(isGetterVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE,
 		creatorVisibility = Visibility.NONE, fieldVisibility = Visibility.NONE)
-public class WishlistCaculation
+public class WishlistCalculation
 {
 
 	@com.fasterxml.jackson.annotation.JsonProperty(value="totalPrice")

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title":"wishlistcaculation",
+  "title":"wishlistCalculation",
   "type":"object",
   "properties":
   {
