@@ -101,7 +101,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	
 	@Override
 	public
-	Response getTotalPriceByWistlistId(
+	Response getByWishlistIdWishlistcalculation(
 			final YaasAwareParameters yaasAware,  final java.lang.String wishlistId)
 	{
 	    
