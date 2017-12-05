@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
+import com.sample.wishlistDemo.api.generated.Wishlist;
 import com.sample.wishlistDemo.constants.Constants;
 
 public class RestTemplateUtil {
@@ -23,7 +24,7 @@ public class RestTemplateUtil {
 	
 	public static String post(String url, String data){
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         headers.set("Authorization", "Bearer " + TokenUtil.getAccessToken(Constants.SCOPE.DOCUMENT_MANAGE));
         HttpEntity<String> formEntity = new HttpEntity<String>(data, headers);
         return RestTemplateUtil.getInstance().postForObject(url, formEntity, String.class);
@@ -31,7 +32,7 @@ public class RestTemplateUtil {
 	
 	public static String get(String url){
 		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		headers.set("Authorization", "Bearer " + TokenUtil.getAccessToken(Constants.SCOPE.DOCUMENT_VIEW));
 		HttpEntity<String> formEntity = new HttpEntity<String>(headers);		
 		return RestTemplateUtil.getInstance().postForObject(Constants.BASE_URL+url, formEntity, String.class);
@@ -45,6 +46,10 @@ public class RestTemplateUtil {
     }
 	
 	public static void main(String[] args) {
+	    Wishlist wishlist = new Wishlist();
+	    wishlist.setOwner("C6724366777");	    
+        String ret = get(Constants.BASE_URL+"wishlists");
+        System.out.println("wishlists is "+ret);
         
     }	
 
