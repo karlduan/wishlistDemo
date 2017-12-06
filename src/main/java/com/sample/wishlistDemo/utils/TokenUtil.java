@@ -14,14 +14,17 @@ public class TokenUtil {
 		return INSTANCE;
 	}
 	
-	public static String getAccessToken(){
-        String jsonData = RestTemplateUtil.postForToken(Constants.AUTH_TOKEN_URL, Constants.AUTH_STR);
+	public static String getAccessToken(Constants.SCOPE scopeType){
+		String data=scopeType.equals(Constants.SCOPE.DOCUMENT_MANAGE)?
+				Constants.MANAGE_SCOPE_TOKEN_DATA:Constants.VIEW_SCOPE_TOKEN_DATA;
+        String jsonData = RestTemplateUtil.postForToken(Constants.AUTH_TOKEN_URL, data);
         Token token = JSONUtil.parseObject(jsonData,Token.class );
         return token.getAccess_token();
 	}
 	
 	public static void main(String[] args) {
-	    System.out.println("Token string is "+getAccessToken());
+//		System.out.println("test");
+	    System.out.println("Token string is "+getAccessToken(Constants.SCOPE.DOCUMENT_VIEW));
     }
 	
 //	public static String getAccessToken(){
