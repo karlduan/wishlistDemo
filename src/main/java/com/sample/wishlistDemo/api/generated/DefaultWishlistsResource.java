@@ -2,15 +2,11 @@
 package com.sample.wishlistDemo.api.generated;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Singleton;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -79,10 +75,6 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 		List<WishlistItem> wishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
 	    return Response.ok()
                 .entity(wishlistItems).build();
-	    /*List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
-	    return Response.ok()
-                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();*/
-	    
 	}
 	
 	@Override
@@ -91,9 +83,8 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 			final YaasAwareParameters yaasAware,  final java.lang.String wishlistId)
 	{
 	    
-	    List<WishlistItem> WishlistItems = wishlistService.getWishlistItemsByWishlistId(yaasAware, wishlistId);
-	    return Response.ok()
-                .entity(WishlistItems==null?new ArrayList<WishlistItem>():WishlistItems).build();
+	    return Response.noContent()
+	            .build();
 	    
 	}
 

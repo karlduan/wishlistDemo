@@ -3,8 +3,6 @@ package com.sample.wishlistDemo.utils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.sample.wishlistDemo.constants.Constants;
@@ -47,16 +45,6 @@ public class RestTemplateUtil {
         HttpEntity<String> formEntity = new HttpEntity<String>(data, headers);
         return RestTemplateUtil.getInstance().postForObject(url, formEntity, String.class);
     }
-	
-	public static void main(String[] args) {
-//	    Wishlist wishlist = new Wishlist();
-//	    wishlist.setOwner("C6724366777");	    
-        String ret = get("/wishlists"+"/C6724366777");
-        System.out.println("wishlists is "+ret);
-//        post(uri, data)
-//        getByOwner(url, owner)
-        
-    }	
 
     public static String getById(String url, String id) {
         return RestTemplateUtil.getInstance().getForObject(url, String.class,
