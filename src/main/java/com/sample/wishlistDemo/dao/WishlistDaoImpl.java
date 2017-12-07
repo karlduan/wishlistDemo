@@ -17,26 +17,21 @@ public class WishlistDaoImpl implements WishlistDao {
     @Override
     public boolean saveProductToWishlist(String usrId,Wishlist wishlist) {
         
-        RestTemplateUtil.post(Constants.BASE_URL, "");
+        RestTemplateUtil.post("", "");
         return false;
     }
     
     @Override
-    public boolean saveAWishlist(Wishlist wishlist) {
-        RestTemplateUtil.post(Constants.BASE_URL+"/"+"wishlists/"+wishlist.getId(), JSONUtil.toJSONString(wishlist));
-        return false;
-    }
-
-    @Override
-    public Wishlist getWishlist() {
-//        RestTemplateUtil
+    public Wishlist saveAWishlist(Wishlist wishlist) {
+        RestTemplateUtil.post("/wishilist"+"/"+wishlist.getOwner(), JSONUtil.toJSONString(wishlist));
         return null;
     }
+
 
     @Override
     public Wishlist getWishlistByOwner(String owner) {
-        // TODO Auto-generated method stub
-        return null;
+        Wishlist wishlist = JSONUtil.parseObject(RestTemplateUtil.get("/wishlist"+"/"+owner), Wishlist.class);
+        return wishlist;
     }
 
     @Override

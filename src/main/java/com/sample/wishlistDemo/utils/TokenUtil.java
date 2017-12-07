@@ -1,5 +1,7 @@
 package com.sample.wishlistDemo.utils;
 
+import java.util.Date;
+
 import com.sample.wishlistDemo.constants.Constants;
 import com.sample.wishlistDemo.pojos.Token;
 
@@ -18,13 +20,16 @@ public class TokenUtil {
 		String data=scopeType.equals(Constants.SCOPE.DOCUMENT_MANAGE)?
 				Constants.MANAGE_SCOPE_TOKEN_DATA:Constants.VIEW_SCOPE_TOKEN_DATA;
         String jsonData = RestTemplateUtil.postForToken(Constants.AUTH_TOKEN_URL, data);
+        System.out.println(jsonData);
         Token token = JSONUtil.parseObject(jsonData,Token.class );
         return token.getAccess_token();
 	}
 	
 	public static void main(String[] args) {
 //		System.out.println("test");
+	    System.out.println(new Date().getTime());
 	    System.out.println("Token string is "+getAccessToken(Constants.SCOPE.DOCUMENT_VIEW));
+//	    System.out.println("Token string is "+getAccessToken(Constants.SCOPE.DOCUMENT_VIEW));
     }
 	
 //	public static String getAccessToken(){

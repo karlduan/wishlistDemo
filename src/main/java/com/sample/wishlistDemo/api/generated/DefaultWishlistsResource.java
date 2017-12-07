@@ -35,10 +35,9 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 	public Response get(final YaasAwareParameters yaasAware)
 	{
 		String usrId = yaasAware.getHybrisUserId();
-		System.out.println(wishMap);
-		// place some logic here
+		Wishlist wishlist = wishlistService.getWishlistByOwner(usrId);	
 		return Response.ok()
-			.entity(wishMap.get(DUMMY_KEY)).build();
+			.entity(wishlist).build();
 	}
 
 	/* POST / */
@@ -48,8 +47,7 @@ public class DefaultWishlistsResource implements com.sample.wishlistDemo.api.gen
 		String usrId = yaasAware.getHybrisUserId();
 		System.out.println(wishMap);
 		wishMap.put(DUMMY_KEY, wishlist);
-//      iWishlist.saveWishlistToDoc(wishlist);
-//		wishlistService.saveAWishlist(wishlist);
+		wishlistService.saveAWishlist(wishlist);
 		return Response.ok()
 	            .entity(wishlist).build();
 	}

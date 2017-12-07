@@ -2,6 +2,7 @@ package com.sample.wishlistDemo.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +18,24 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public boolean saveProductToWishlist(String usrId, Wishlist wishlist) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean saveAWishlist(Wishlist wishlist) {
-        wishlistDao.saveAWishlist(wishlist);
-        return false;
-    }
-
-    @Override
-    public Wishlist getWishlist() {
-        // TODO Auto-generated method stub
-        return null;
+    public Wishlist saveAWishlist(Wishlist wishlist) {
+        Wishlist wishlistFromDoc = wishlistDao.getWishlistByOwner(wishlist.getOwner());
+        if (wishlistFromDoc!=null&&StringUtils.isNotEmpty(wishlistFromDoc.getId())) {
+            return wishlistFromDoc;
+        }
+        else {
+            return wishlistDao.saveAWishlist(wishlist);
+        }
+        
     }
 
     @Override
     public Wishlist getWishlistByOwner(String owner) {
-        // TODO Auto-generated method stub
-        return null;
+        return wishlistDao.getWishlistByOwner(owner);
     }
 
     @Override
