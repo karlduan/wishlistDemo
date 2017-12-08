@@ -9,10 +9,8 @@ import com.sample.wishlistDemo.api.generated.WishlistItem;
 import com.sample.wishlistDemo.api.generated.YaasAwareParameters;
 @Service
 public interface WishlistService {
-    boolean saveProductToWishlist(String usrId,Wishlist wishlist);
-    Wishlist saveAWishlist(Wishlist wishlist);
-    Wishlist getWishlistByOwner(String owner);
+    String saveAWishlist(Wishlist wishlist);
+    Wishlist getWishlistByUsrId(String usrId);
     List<WishlistItem> getWishlistItemsByWishlistId(YaasAwareParameters yaasAware,String wishlistId);
-    boolean saveWishlistItemsByWishlistId(YaasAwareParameters yaasAware, String wishlistId, WishlistItem wishlistItem);
-
+    void saveWishlistItemsByWishlistId(YaasAwareParameters yaasAware, String wishlistId, WishlistItem wishlistItem);
 }

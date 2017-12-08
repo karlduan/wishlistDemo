@@ -1,5 +1,6 @@
 package com.sample.wishlistDemo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import com.sample.wishlistDemo.api.generated.Wishlist;
 import com.sample.wishlistDemo.api.generated.WishlistItem;
 import com.sample.wishlistDemo.api.generated.YaasAwareParameters;
 import com.sample.wishlistDemo.dao.WishlistDao;
+import com.sample.wishlistDemo.utils.JSONUtil;
 @Service
 public class WishlistServiceImpl implements WishlistService {
     
@@ -17,38 +19,44 @@ public class WishlistServiceImpl implements WishlistService {
     WishlistDao wishlistDao;
 
     @Override
-    public boolean saveProductToWishlist(String usrId, Wishlist wishlist) {
-        return false;
-    }
-
-    @Override
-    public Wishlist saveAWishlist(Wishlist wishlist) {
-        Wishlist wishlistFromDoc = wishlistDao.getWishlistByOwner(wishlist.getOwner());
-        if (wishlistFromDoc!=null&&StringUtils.isNotEmpty(wishlistFromDoc.getId())) {
-            return wishlistFromDoc;
-        }
-        else {
-            return wishlistDao.saveAWishlist(wishlist);
-        }
+    public String saveAWishlist(Wishlist wishlist) {
+    	String ret = wishlistDao.saveAWishlist(wishlist);
+        return StringUtils.contains(ret, "id")?wishlist.getId():StringUtils.EMPTY;
         
     }
 
     @Override
-    public Wishlist getWishlistByOwner(String owner) {
-        return wishlistDao.getWishlistByOwner(owner);
+    public Wishlist getWishlistByUsrId(String usrId) {
+    	Wishlist wishlistRet = new Wishlist();
+    	List<Wishlist> wishlists = JSONUtil.parseArray(wishlistDao.getWishlists(), Wishlist.class);
+    	for (Wishlist wishlist : wishlists) {
+			if (StringUtils.equalsAnyIgnoreCase(wishlist.getOwner(), usrId)) {
+				wishlistRet= wishlist;
+				break;
+			}
+		}      
+        return wishlistRet;
     }
 
     @Override
     public List<WishlistItem> getWishlistItemsByWishlistId(YaasAwareParameters yaasAware, String wishlistId) {
-        // TODO Auto-generated method stub
-        return null;
+    	Wishlist wishlist = JSONUtil.parseObject(wishlistDao.
+    			getByWishlistId(yaasAware, wishlistId),Wishlist.class);
+        return wishlist.getItems();
     }
 
     @Override
-    public boolean saveWishlistItemsByWishlistId(YaasAwareParameters yaasAware, String wishlistId,
+    public void saveWishlistItemsByWishlistId(YaasAwareParameters yaasAware, String wishlistId,
             WishlistItem wishlistItem) {
-        // TODO Auto-generated method stub
-        return false;
+    	Wishlist wishlist = JSONUtil.parseObject(wishlistDao.getByWishlistId(yaasAware, wishlistId), Wishlist.class);
+    	List<WishlistItem> wishlistItems = wishlist.getItems();
+		if (wishlistItems != null) {
+			wishlistItems.add(wishlistItem);
+		} else {
+			wishlistItems = new ArrayList<WishlistItem>();
+			wishlistItems.add(wishlistItem);
+		}
+		wishlist.setItems(wishlistItems);
     }
 
 }
